@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Expense Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Business Analytics Dashboard</p>
+        <h1>AI Expense Tracker</h1>
+      </div>
+      <div class="topbar-actions">
+        <button class="secondary-button" id="loadSampleButton" type="button">Load sample</button>
+        <button class="secondary-button" id="exportButton" type="button">Export CSV</button>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <aside class="input-panel" aria-label="Expense input">
+        <div class="panel-heading">
+          <h2>Expense Input</h2>
+          <p>Paste one expense per line using merchant and amount.</p>
+        </div>
+
+        <label for="expenseInput">Transactions</label>
+        <textarea id="expenseInput" spellcheck="false">Uber Eats - $23
+Starbucks - $8
+Rent - $1200
+Netflix - $15
+Gas - $80
+Walmart groceries - $94
+TTC monthly pass - $156
+Amazon office supplies - $42</textarea>
+
+        <div class="form-grid">
+          <label>
+            Month
+            <select id="monthSelect">
+              <option value="2026-05">May 2026</option>
+              <option value="2026-04">April 2026</option>
+              <option value="2026-03">March 2026</option>
+            </select>
+          </label>
+          <label>
+            Monthly budget
+            <input id="budgetInput" type="number" min="0" step="50" value="2200">
+          </label>
+        </div>
+
+        <button class="primary-button" id="analyzeButton" type="button">Analyze expenses</button>
+
+        <div class="rules">
+          <h3>Auto-Categorization Rules</h3>
+          <div class="rule-list" id="ruleList"></div>
+        </div>
+      </aside>
+
+      <section class="dashboard" aria-label="Expense dashboard">
+        <div class="metrics-grid">
+          <article class="metric-card">
+            <span>Total Spend</span>
+            <strong id="totalSpend">$0</strong>
+            <small id="budgetStatus">Within budget</small>
+          </article>
+          <article class="metric-card">
+            <span>Largest Category</span>
+            <strong id="largestCategory">Food</strong>
+            <small id="largestShare">0% of spending</small>
+          </article>
+          <article class="metric-card">
+            <span>Average Transaction</span>
+            <strong id="averageTransaction">$0</strong>
+            <small id="transactionCount">0 transactions</small>
+          </article>
+        </div>
+
+        <div class="chart-grid">
+          <section class="chart-panel">
+            <div class="panel-heading compact">
+              <h2>Category Mix</h2>
+              <p>Share of spend by business category.</p>
+            </div>
+            <canvas id="categoryChart" width="520" height="340" aria-label="Expense category chart"></canvas>
+            <div class="legend" id="categoryLegend"></div>
+          </section>
+
+          <section class="chart-panel">
+            <div class="panel-heading compact">
+              <h2>Monthly Trend</h2>
+              <p>Current month compared with simulated history.</p>
+            </div>
+            <canvas id="trendChart" width="520" height="340" aria-label="Monthly trend chart"></canvas>
+          </section>
+        </div>
+
+        <section class="insight-panel">
+          <div class="panel-heading compact">
+            <h2>AI Insights</h2>
+            <p>Rule-based analysis written like a business recommendation.</p>
+          </div>
+          <div id="insightList" class="insight-list"></div>
+        </section>
+
+        <section class="table-panel">
+          <div class="panel-heading compact">
+            <h2>Categorized Transactions</h2>
+            <p>Parsed expenses ready for reporting.</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Merchant</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Confidence</th>
+                </tr>
+              </thead>
+              <tbody id="transactionTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
